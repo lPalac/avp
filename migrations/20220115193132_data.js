@@ -1,12 +1,11 @@
 exports.up = function (knex) {
-  return knex.schema.createTable("signatory", (table) => {
+  return knex.schema.createTable("signer", (table) => {
     table.increments("id").primary();
     table.string("name").notNullable();
-    table.timestamp("created_at").defaultTo(knex.fn.now());
-    table.date("signing_date");
+    table.string("signing_date").notNullable();
   });
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable("signatory");
+  return knex.schema.dropTable("signer");
 };

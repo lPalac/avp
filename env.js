@@ -1,1 +1,1 @@
-require('dotenv-safe').config()
+require('dotenv').config()
