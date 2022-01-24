@@ -1,12 +1,14 @@
 const db = require("../db");
 
-async function get(name) {
-  result = await db
+async function getWithName(name) {
+  return await db
     .select("name", "signing_date")
     .from("signer")
     .where("name", name);
+}
 
-  return result;
+async function get() {
+  return await db.select("*").from("signer");
 }
 
 async function create(name, signing_date) {
@@ -25,4 +27,5 @@ module.exports = {
   create,
   get,
   disconnect,
+  getWithName,
 };

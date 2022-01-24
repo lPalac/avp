@@ -1,15 +1,25 @@
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const express = require("express");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const cors = require("cors");
 
-const { get, create, disconnect } = require("./db/crud");
+const app = express();
+app.use(bodyParser.json());
+app.use(cors({ origin: "*" }));
 
-const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
-console.log(dom.window.document.querySelector("p").textContent); // "Hello world"
+const { get, getWithName } = require("./db/crud");
+const PORT = 8080;
 
-async function getSpecificName(name) {
-  let result = await get(name);
-  console.log(result);
-  disconnect();
-}
+app.listen(PORT, () => {
+  console.log(`Running on PORT ${PORT}`);
+});
 
-getSpecificName("Alan Francis");
+app.get("/names", async (req, res) => {
+  const results = await get();
+  res.json(results);
+});
+
+app.get("/names/:name", async (req, res) => {
+  const results = await getWithName(req.params.name);
+  res.json(results);
+});

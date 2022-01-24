@@ -1,5 +1,7 @@
 const Crawler = require("crawler");
 var jsdom = require("jsdom");
+require("dotenv").config();
+
 const { get, create, disconnect } = require("./db/crud");
 
 const nameRegexp =
@@ -17,7 +19,7 @@ const signsCrawler = new Crawler({
     } else {
       var names = res.body.match(nameRegexp);
       var signaturesDates = res.body.match(signaturesRegexp);
-    
+
       await insertIntoDb(names, signaturesDates);
     }
     done();
@@ -47,7 +49,7 @@ async function insertIntoDb(names, signaturesDates) {
       continue;
     }
 
-    await create(names[i], signaturesDates);
+    console.log(await create(names[i], signaturesDates));
   }
 
   console.log("Page doone");
