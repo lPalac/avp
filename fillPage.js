@@ -46,6 +46,8 @@ function displaySearchResults(user) {
     .getElementById("searchTable")
     .getElementsByTagName("tbody")[0];
 
+  removeAnyChildren(tbodyRef);
+
   const newRow = tbodyRef.insertRow();
 
   const nameCell = newRow.insertCell();
@@ -53,4 +55,12 @@ function displaySearchResults(user) {
 
   nameCell.appendChild(document.createTextNode(user.name));
   signatureCell.appendChild(document.createTextNode(user.signing_date));
+}
+
+function removeAnyChildren(parent) {
+  var child = parent.lastElementChild;
+  while (child) {
+    parent.removeChild(child);
+    child = parent.lastElementChild;
+  }
 }

@@ -1,0 +1,40 @@
+h1 {
+  font-size: 64px;
+  text-align: center;
+}
+h2 {
+  font-size: 32px;
+  text-align: center;
+}
+body {
+  max-width: 1100px;
+  margin: 40px auto 0 auto;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: aliceblue;
+}
+#searchInput {
+  width: 75%;
+  padding: 12px 8px;
+  font-size: 22px;
+}
+button {
+  width: 20%;
+  padding: 12px 8px;
+  font-size: 22px;
+  background-color: lightgreen;
+}
+.subtitle {
+  margin-bottom: 26px;
+}
+table {
+  border: 1px solid black;
+  width: 100%;
+}
+td {
+  border: 1px solid black;
+  width: 50%;
+  padding: 4px;
+}
+thead {
+  background-color: lightblue;
+}
