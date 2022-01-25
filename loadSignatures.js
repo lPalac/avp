@@ -1,5 +1,4 @@
 const Crawler = require("crawler");
-var jsdom = require("jsdom");
 require("dotenv").config();
 
 const { get, create, disconnect } = require("./db/crud");
@@ -8,11 +7,9 @@ const nameRegexp =
   /(?<=\.\w+">).*?(?=<\/a>(:|\.))|(?<=<b>).*?(?=<\/b>(:|\.))/gm;
 const signaturesRegexp = /(?<=\bSignatures Received:\s).*?(?=<b>)/gm;
 const linksRegexp = /(?<=href=").*?(?=">)/gm;
-let brojacStranica = 0;
 
 const signsCrawler = new Crawler({
   rateLimit: 1000,
-  jQuery: jsdom,
   callback: async function (err, res, done) {
     if (err) {
       console.log(err);
@@ -45,14 +42,13 @@ const pagesCrawler = new Crawler({
 
 async function insertIntoDb(names, signaturesDates) {
   for (var i = 0; i < names.length; i++) {
-    if (names[i].search("</a>") != -1) {
-      continue;
+    if (names[i].search("</a>") != -1 || names[i].search("<b>") != -1) {
+      const lastIndex = names[i].lastIndexOf(">");
+      names[i] = names[i].substring(lastIndex+1);
     }
 
-    console.log(await create(names[i], signaturesDates));
+    await create(names[i], signaturesDates);
   }
-
-  console.log("Page doone");
 }
 
 pagesCrawler.queue("https://agilemanifesto.org/display");
