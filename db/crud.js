@@ -8,7 +8,7 @@ async function getWithName(name) {
 }
 
 async function get() {
-  return await db.select("*").from("signer");
+  return await db.select("*").from("signer").limit(10);
 }
 
 async function create(name, signing_date) {

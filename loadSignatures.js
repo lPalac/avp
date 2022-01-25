@@ -44,10 +44,10 @@ async function insertIntoDb(names, signaturesDates) {
   for (var i = 0; i < names.length; i++) {
     if (names[i].search("</a>") != -1 || names[i].search("<b>") != -1) {
       const lastIndex = names[i].lastIndexOf(">");
-      names[i] = names[i].substring(lastIndex+1);
+      names[i] = names[i].substring(lastIndex + 1);
     }
 
-    await create(names[i], signaturesDates);
+    await create(names[i], signaturesDates[0]);
   }
 }
 
